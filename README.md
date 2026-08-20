@@ -8,6 +8,10 @@ Kho mã nguồn cho bài kiểm tra gồm 3 phần:
 | 2 | `bai2-fibonacci/` | Thuật toán Fibonacci |
 | 3 | `bai3-game-server/` | Server Game (Line 98, Cờ Caro) |
 
+## Bài 3
+
+Xem [bai3-game-server/README.md](./bai3-game-server/README.md)
+
 ## Bài 1
 
 Xem [bai1-task-api/README.md](./bai1-task-api/README.md)
