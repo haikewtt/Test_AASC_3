@@ -11,3 +11,7 @@ Kho mã nguồn cho bài kiểm tra gồm 3 phần:
 ## Bài 1
 
 Xem [bai1-task-api/README.md](./bai1-task-api/README.md)
+
+## Bài 2
+
+Xem [bai2-fibonacci/README.md](./bai2-fibonacci/README.md)

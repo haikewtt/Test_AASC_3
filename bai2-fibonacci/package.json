@@ -1,0 +1,12 @@
+{
+  "name": "bai2-fibonacci",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node fibonacci.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0"
+  }
+}
