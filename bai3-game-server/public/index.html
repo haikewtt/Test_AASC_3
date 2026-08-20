@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AASC Game Server</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .container { background: #16213e; padding: 2rem; border-radius: 12px; width: 400px; box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+    h1 { text-align: center; margin-bottom: 1.5rem; color: #e94560; }
+    input { width: 100%; padding: .75rem; margin: .5rem 0; border: none; border-radius: 6px; background: #0f3460; color: #fff; }
+    button { width: 100%; padding: .75rem; margin: .5rem 0; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+    .btn-primary { background: #e94560; color: #fff; }
+    .btn-secondary { background: #0f3460; color: #fff; }
+    .games { margin-top: 1.5rem; display: flex; gap: 1rem; }
+    .games a { flex: 1; text-align: center; padding: 1rem; background: #0f3460; color: #fff; text-decoration: none; border-radius: 8px; }
+    .games a:hover { background: #e94560; }
+    .error { color: #ff6b6b; font-size: .875rem; margin-top: .5rem; }
+    .hidden { display: none; }
+    #userInfo { text-align: center; margin-bottom: 1rem; color: #aaa; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Game Server</h1>
+    <p id="userInfo"></p>
+
+    <div id="authForm">
+      <input id="username" placeholder="Username" />
+      <input id="password" type="password" placeholder="Password" />
+      <button class="btn-primary" onclick="login()">Đăng nhập</button>
+      <button class="btn-secondary" onclick="register()">Đăng ký</button>
+      <p id="error" class="error"></p>
+    </div>
+
+    <div id="gameMenu" class="hidden">
+      <div class="games">
+        <a href="/line98.html">Line 98</a>
+        <a href="/caro.html">Cờ Caro</a>
+      </div>
+      <button class="btn-secondary" style="margin-top:1rem" onclick="logout()">Đăng xuất</button>
+    </div>
+  </div>
+  <script src="/js/auth.js"></script>
+  <script>
+    if (token) showLoggedIn();
+    else showAuth();
+
+    function showAuth() {
+      document.getElementById('authForm').classList.remove('hidden');
+      document.getElementById('gameMenu').classList.add('hidden');
+    }
+    function showLoggedIn() {
+      document.getElementById('authForm').classList.add('hidden');
+      document.getElementById('gameMenu').classList.remove('hidden');
+      showUser();
+    }
+    async function login() {
+      try {
+        const data = await api('/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value,
+          }),
+        });
+        saveAuth(data);
+        showLoggedIn();
+      } catch (e) {
+        document.getElementById('error').textContent = e.message;
+      }
+    }
+    async function register() {
+      try {
+        const data = await api('/auth/register', {
+          method: 'POST',
+          body: JSON.stringify({
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value,
+          }),
+        });
+        saveAuth(data);
+        showLoggedIn();
+      } catch (e) {
+        document.getElementById('error').textContent = e.message;
+      }
+    }
+  </script>
+</body>
+</html>
